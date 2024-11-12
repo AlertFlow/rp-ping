@@ -8,6 +8,7 @@ import (
 	"gitlab.justlab.xyz/alertflow-public/runner/pkg/executions"
 	"gitlab.justlab.xyz/alertflow-public/runner/pkg/models"
 
+	"github.com/gin-gonic/gin"
 	probing "github.com/prometheus-community/pro-bing"
 	log "github.com/sirupsen/logrus"
 )
@@ -23,7 +24,7 @@ func (p *PingPlugin) Init() models.Plugin {
 	}
 }
 
-func (p *PingPlugin) Details() models.ActionDetails {
+func (p *PingPlugin) Details() models.PluginDetails {
 	params := []models.Param{
 		{
 			Key:         "Target",
@@ -46,15 +47,17 @@ func (p *PingPlugin) Details() models.ActionDetails {
 		log.Error(err)
 	}
 
-	return models.ActionDetails{
-		ID:          "ping",
-		Name:        "Ping",
-		Description: "Pings a target",
-		Icon:        "solar:wi-fi-router-minimalistic-broken",
-		Type:        "ping",
-		Category:    "Network",
-		Function:    p.Execute,
-		Params:      json.RawMessage(paramsJSON),
+	return models.PluginDetails{
+		Action: models.ActionDetails{
+			ID:          "ping",
+			Name:        "Ping",
+			Description: "Pings a target",
+			Icon:        "solar:wi-fi-router-minimalistic-broken",
+			Type:        "ping",
+			Category:    "Network",
+			Function:    p.Execute,
+			Params:      json.RawMessage(paramsJSON),
+		},
 	}
 }
 
@@ -138,5 +141,7 @@ func (p *PingPlugin) Execute(execution models.Execution, flow models.Flows, payl
 
 	return nil, true, false, false, false
 }
+
+func (p *PingPlugin) Handle(context *gin.Context) {}
 
 var Plugin PingPlugin
