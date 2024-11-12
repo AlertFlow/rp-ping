@@ -14,7 +14,16 @@ import (
 
 type PingPlugin struct{}
 
-func (p *PingPlugin) Init() models.ActionDetails {
+func (p *PingPlugin) Init() models.Plugin {
+	return models.Plugin{
+		Name:    "Ping",
+		Type:    "action",
+		Version: "1.0.1",
+		Creator: "JustNZ",
+	}
+}
+
+func (p *PingPlugin) Details() models.ActionDetails {
 	params := []models.Param{
 		{
 			Key:         "Target",
