@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"strconv"
 	"time"
 
@@ -19,7 +21,7 @@ func (p *PingPlugin) Init() models.Plugin {
 	return models.Plugin{
 		Name:    "Ping",
 		Type:    "action",
-		Version: "1.0.1",
+		Version: "1.0.2",
 		Creator: "JustNZ",
 	}
 }
@@ -102,12 +104,21 @@ func (p *PingPlugin) Execute(execution models.Execution, flow models.Flows, payl
 		return nil, false, false, false, true
 	}
 	pinger.Count = count
-	err = pinger.Run() // Blocks until finished.
+	timeout := time.Duration(count) * time.Second
+	pinger.Timeout = timeout
+	err = pinger.Run()
 	if err != nil {
-		log.Error("Error running pinger: ", err)
+		msg := ""
+		if errors.Is(err, context.DeadlineExceeded) {
+			msg = "Pinger timed out"
+			log.Error("Pinger timed out: ", err)
+		} else {
+			msg = "Error running pinger"
+			log.Error("Error running pinger: ", err)
+		}
 		err = executions.UpdateStep(execution.ID.String(), models.ExecutionSteps{
 			ID:             step.ID,
-			ActionMessages: []string{"Error running pinger: " + err.Error()},
+			ActionMessages: []string{msg + ": " + err.Error()},
 			Running:        false,
 			Error:          true,
 			Finished:       true,
