@@ -6,7 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/prometheus-community/pro-bing v0.4.1
 	github.com/sirupsen/logrus v1.9.3
-	gitlab.justlab.xyz/alertflow-public/runner v0.12.5-beta
+	gitlab.justlab.xyz/alertflow-public/runner v0.14.1-beta
 )
 
 require (
