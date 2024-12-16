@@ -21,7 +21,7 @@ func (p *PingPlugin) Init() models.Plugin {
 	return models.Plugin{
 		Name:    "Ping",
 		Type:    "action",
-		Version: "1.0.3",
+		Version: "1.0.4",
 		Creator: "JustNZ",
 	}
 }
