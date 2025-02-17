@@ -6,7 +6,7 @@ require (
 	github.com/AlertFlow/runner v1.0.0-beta3
 	github.com/hashicorp/go-plugin v1.6.3
 	github.com/prometheus-community/pro-bing v0.5.0
-	github.com/v1Flows/alertFlow/services/backend v0.0.0-20250216182013-403162bb3661
+	github.com/v1Flows/alertFlow/services/backend v0.0.0-20250217135827-391bd2b5b705
 )
 
 require (
