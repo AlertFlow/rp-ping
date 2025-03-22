@@ -5,8 +5,8 @@ go 1.24.0
 require (
 	github.com/hashicorp/go-plugin v1.6.3
 	github.com/prometheus-community/pro-bing v0.5.0
-	github.com/v1Flows/alertFlow/services/backend v0.0.0-20250317112742-7a11f04dd445
-	github.com/v1Flows/runner v1.0.0-beta11
+	github.com/v1Flows/runner v1.0.1
+	github.com/v1Flows/shared-library v1.0.6
 )
 
 require (
@@ -34,8 +34,8 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
 	github.com/uptrace/bun v1.2.11 // indirect
+	github.com/v1Flows/alertFlow/services/backend v0.0.0-20250317112742-7a11f04dd445 // indirect
 	github.com/v1Flows/exFlow/services/backend v0.0.0-20250314134041-010ef4dcb540 // indirect
-	github.com/v1Flows/shared-library v1.0.3 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
