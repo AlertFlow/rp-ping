@@ -36,7 +36,11 @@ func (p *Plugin) ExecuteTask(request plugins.ExecuteTaskRequest) (plugins.Respon
 		Messages: []models.Message{
 			{
 				Title: "Ping",
-				Lines: []string{`Starting Ping on target: ` + target},
+				Lines: []models.Line{
+					{
+						Content: "Start Ping on target: " + target,
+					},
+				},
 			},
 		},
 		Status:    "running",
@@ -55,7 +59,16 @@ func (p *Plugin) ExecuteTask(request plugins.ExecuteTaskRequest) (plugins.Respon
 			Messages: []models.Message{
 				{
 					Title: "Ping",
-					Lines: []string{"Error creating pinger: " + err.Error()},
+					Lines: []models.Line{
+						{
+							Content: "Error creating pinger",
+							Color:   "danger",
+						},
+						{
+							Content: err.Error(),
+							Color:   "danger",
+						},
+					},
 				},
 			},
 			Status:     "error",
@@ -86,7 +99,16 @@ func (p *Plugin) ExecuteTask(request plugins.ExecuteTaskRequest) (plugins.Respon
 			Messages: []models.Message{
 				{
 					Title: "Ping",
-					Lines: []string{msg + ": " + err.Error()},
+					Lines: []models.Line{
+						{
+							Content: msg,
+							Color:   "danger",
+						},
+						{
+							Content: err.Error(),
+							Color:   "danger",
+						},
+					},
 				},
 			},
 			Status:     "error",
@@ -108,14 +130,32 @@ func (p *Plugin) ExecuteTask(request plugins.ExecuteTaskRequest) (plugins.Respon
 		Messages: []models.Message{
 			{
 				Title: "Ping",
-				Lines: []string{
-					"Sent: " + strconv.Itoa(stats.PacketsSent),
-					"Received: " + strconv.Itoa(stats.PacketsRecv),
-					"Lost: " + strconv.Itoa(int(stats.PacketLoss)),
-					"RTT min: " + stats.MinRtt.String(),
-					"RTT max: " + stats.MaxRtt.String(),
-					"RTT avg: " + stats.AvgRtt.String(),
-					"Ping finished",
+				Lines: []models.Line{
+					{
+						Content: "Ping results",
+					},
+					{
+						Content: "Sent: " + strconv.Itoa(stats.PacketsSent),
+					},
+					{
+						Content: "Received: " + strconv.Itoa(stats.PacketsRecv),
+					},
+					{
+						Content: "Lost: " + strconv.Itoa(int(stats.PacketLoss)),
+					},
+					{
+						Content: "RTT min: " + stats.MinRtt.String(),
+					},
+					{
+						Content: "RTT max: " + stats.MaxRtt.String(),
+					},
+					{
+						Content: "RTT avg: " + stats.AvgRtt.String(),
+					},
+					{
+						Content: "Ping finished",
+						Color:   "success",
+					},
 				},
 			},
 		},
@@ -143,7 +183,7 @@ func (p *Plugin) Info(request plugins.InfoRequest) (models.Plugin, error) {
 	var plugin = models.Plugin{
 		Name:    "Ping",
 		Type:    "action",
-		Version: "1.2.1",
+		Version: "1.2.2",
 		Author:  "JustNZ",
 		Action: models.Action{
 			Name:        "Ping",
